@@ -16,22 +16,8 @@ import {
   type Perfil,
   type Plano,
 } from "@/lib/atlantis";
-import { AMOSTRA } from "@/lib/dados";
 
 type Entrada = Record<Dim, string>;
-const toEntrada = (p: Perfil): Entrada =>
-  Object.fromEntries(DIMS.map((d) => [d, String(p[d])])) as Entrada;
-
-const PRESETS: { rotulo: string; desc: string; perfil: Entrada; atual?: string }[] = [
-  ...AMOSTRA.map((c) => ({
-    rotulo: `Cliente ${c.id}`,
-    desc: `${c.plano} · ${brl(c.mensalidade)}`,
-    perfil: toEntrada(c),
-    atual: c.plano,
-  })),
-  { rotulo: "Caso extremo", desc: "teste do notebook", perfil: toEntrada({ dados_gb: 200, minutos: 3000, streaming_horas: 80, deslocamento_dias: 25 }) },
-  { rotulo: "Entrada inválida", desc: "teste de erro", perfil: { dados_gb: "abc", minutos: "500", streaming_horas: "15", deslocamento_dias: "5" } },
-];
 
 const SLIDER_MAX: Record<Dim, number> = { dados_gb: 120, minutos: 1500, streaming_horas: 40, deslocamento_dias: 31 };
 
@@ -39,7 +25,7 @@ type Aba = "recomendar" | "catalogo" | "como";
 
 export function Atlantis() {
   const [aba, setAba] = useState<Aba>("recomendar");
-  const [entrada, setEntrada] = useState<Entrada>({ dados_gb: "48", minutos: "520", streaming_horas: "15", deslocamento_dias: "6" });
+  const [entrada, setEntrada] = useState<Entrada>({ dados_gb: "", minutos: "", streaming_horas: "", deslocamento_dias: "" });
   const [atual, setAtual] = useState<string>("");
   const [enviado, setEnviado] = useState<{ e: Entrada; atual: string } | null>(null);
 
@@ -87,24 +73,8 @@ export function Atlantis() {
             }}
           >
             <div>
-              <p className="kicker text-muted-foreground">Testes rápidos</p>
-              <div className="mt-3 flex flex-wrap gap-2">
-                {PRESETS.map((p) => (
-                  <button
-                    type="button"
-                    key={p.rotulo}
-                    title={p.desc}
-                    onClick={() => {
-                      setEntrada(p.perfil);
-                      setAtual(p.atual ?? "");
-                      enviar(p.perfil, p.atual ?? "");
-                    }}
-                    className="rounded-full border border-border px-3 py-1.5 text-xs font-medium transition hover:border-primary hover:text-primary"
-                  >
-                    {p.rotulo}
-                  </button>
-                ))}
-              </div>
+              <p className="kicker text-muted-foreground">Seu perfil de consumo</p>
+              <p className="mt-2 text-sm text-muted-foreground">Preencha os dados mensais para receber uma recomendação.</p>
             </div>
 
             {DIMS.map((d) => {
@@ -195,11 +165,11 @@ function Vazio() {
     <div className="flex h-full flex-col items-start justify-center gap-4">
       <div className="max-w-md rounded-2xl rounded-tl-sm bg-muted p-5">
         <p className="text-sm leading-relaxed">
-          Olá, eu sou o Atlantis. Informe o consumo mensal (internet, minutos, streaming e dias em deslocamento) e eu indico os
-          3 planos que melhor combinam, explicando o que cada um cobre.
+          Informe seu consumo mensal de internet, minutos, streaming e dias em deslocamento. O Atlantis indica três planos e mostra
+          quanto cada um cobre do seu perfil.
         </p>
       </div>
-      <p className="text-sm text-muted-foreground">Ajuste os campos ao lado ou escolha um teste rápido.</p>
+      <p className="text-sm text-muted-foreground">A recomendação aparece aqui depois do envio do formulário.</p>
     </div>
   );
 }

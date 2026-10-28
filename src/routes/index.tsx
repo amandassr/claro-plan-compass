@@ -45,12 +45,12 @@ export const Route = createFileRoute("/")({
    EDITE AQUI: nome da equipe e integrantes.
    Para a foto, coloque a URL da imagem em `foto` (ou deixe vazio).
    ────────────────────────────────────────────────────────────── */
-const EQUIPE = "Nome da equipe";
-const INTEGRANTES: { nome: string; papel: string; linkedin: string; foto: string }[] = [
-  { nome: "Integrante 1", papel: "Função no projeto", linkedin: "", foto: "" },
-  { nome: "Integrante 2", papel: "Função no projeto", linkedin: "", foto: "" },
-  { nome: "Integrante 3", papel: "Função no projeto", linkedin: "", foto: "" },
-  { nome: "Integrante 4", papel: "Função no projeto", linkedin: "", foto: "" },
+const EQUIPE = "Equipe Atlantis";
+const INTEGRANTES: { nome: string; linkedin: string; foto: string; qr: string }[] = [
+  { nome: "Amanda Ribeiro", linkedin: "https://www.linkedin.com/in/amanda-ribeiro-b5b2b3176/", foto: "", qr: "/amanda-ribeiro-qr.svg" },
+  { nome: "Amanda Carvalho", linkedin: "https://www.linkedin.com/in/amanda-carvalho-teixeira-430b9113a/", foto: "", qr: "/amanda-carvalho-qr.svg" },
+  { nome: "Raquel Domingues", linkedin: "https://www.linkedin.com/in/raquelcs-domingues/", foto: "", qr: "/raquel-domingues-qr.svg" },
+  { nome: "Andresa Caroline", linkedin: "https://www.linkedin.com/in/Andresa-caroline/", foto: "", qr: "/andresa-caroline-qr.svg" },
 ];
 
 const TELAS = [
@@ -60,6 +60,7 @@ const TELAS = [
   { id: "construido", n: "04", t: "O que construímos" },
   { id: "resultados", n: "05", t: "Resultados" },
   { id: "conclusao", n: "06", t: "Conclusão" },
+  { id: "agradecimentos", n: "07", t: "Agradecimentos" },
 ];
 
 function Index() {
@@ -73,6 +74,7 @@ function Index() {
       <Construido />
       <Resultados />
       <Conclusao />
+      <Agradecimentos />
       <footer className="border-t border-border px-6 py-10 text-sm text-muted-foreground md:px-12">
         <div className="mx-auto flex max-w-7xl flex-wrap justify-between gap-4">
           <p>
@@ -134,7 +136,7 @@ function Secao({ id, n, kicker, titulo, children, escuro }: { id: string; n: str
     <section id={id} className={`scroll-mt-16 px-6 py-24 md:px-12 md:py-32 ${escuro ? "grain bg-ink text-ink-foreground" : ""}`}>
       <div className="mx-auto max-w-7xl">
         <div className="mb-14 grid gap-6 md:grid-cols-[120px_1fr]">
-          <p className={`font-mono text-sm ${escuro ? "text-ink-muted" : "text-muted-foreground"}`}>{n} / 06</p>
+          <p className={`font-mono text-sm ${escuro ? "text-ink-muted" : "text-muted-foreground"}`}>{n} / 07</p>
           <div>
             <p className={`kicker ${escuro ? "text-accent" : "text-primary"}`}>{kicker}</p>
             <h2 className="mt-3 max-w-4xl text-4xl font-semibold leading-[1.02] md:text-6xl">{titulo}</h2>
@@ -221,14 +223,14 @@ function Objetivo() {
               )}
             </div>
             <h3 className="mt-5 text-xl font-semibold">{p.nome}</h3>
-            <p className="text-sm text-muted-foreground">{p.papel}</p>
-            {p.linkedin ? (
-              <a href={p.linkedin} target="_blank" rel="noreferrer" className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline">
-                LinkedIn ↗
-              </a>
-            ) : (
-              <p className="mt-4 text-sm text-muted-foreground/70">LinkedIn — adicionar link</p>
-            )}
+            <p className="text-sm text-muted-foreground">Integrante do projeto</p>
+            <a href={p.linkedin} target="_blank" rel="noreferrer" className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline">
+              LinkedIn ↗
+            </a>
+            <div className="mt-4 flex items-center gap-3 border-t border-border pt-4">
+              <img src={p.qr} alt={`QR code do LinkedIn de ${p.nome}`} className="size-20 rounded border border-border bg-white p-1" />
+              <p className="text-xs text-muted-foreground">Escaneie para abrir o perfil</p>
+            </div>
           </article>
         ))}
       </div>
@@ -766,10 +768,30 @@ function Conclusao() {
         </div>
       </div>
 
-      <div className="grain mt-20 overflow-hidden rounded-4xl bg-primary p-10 text-primary-foreground md:p-16">
-        <p className="kicker opacity-80">Obrigado</p>
-        <p className="mt-4 max-w-3xl font-display text-4xl font-semibold leading-tight md:text-6xl">Perguntas?</p>
-        <p className="mt-4 opacity-85">{EQUIPE}</p>
+    </Secao>
+  );
+}
+
+function Agradecimentos() {
+  const parceiros = ["Claro", "Soul Code", "Favela Gaming"];
+  return (
+    <Secao id="agradecimentos" n="07" kicker="Agradecimentos" titulo="Uma jornada construída em conjunto." escuro>
+      <div className="max-w-3xl">
+        <p className="text-lg leading-relaxed text-ink-foreground/85">
+          Agradecemos à Claro, à Soul Code e à Favela Gaming pela realização do bootcamp e pela oportunidade de desenvolver este projeto.
+          Foi uma experiência de aprendizado, colaboração e construção de soluções em tecnologia.
+        </p>
+      </div>
+      <div className="mt-12 grid gap-4 sm:grid-cols-3">
+        {parceiros.map((parceiro) => (
+          <div key={parceiro} className="flex aspect-[2/1] items-center justify-center rounded-xl border border-dashed border-ink-foreground/30 px-4 text-center">
+            <span className="font-mono text-sm text-ink-muted">Logo da {parceiro} · aguardando envio</span>
+          </div>
+        ))}
+      </div>
+      <div className="mt-16 border-t border-ink-foreground/15 pt-10">
+        <p className="kicker text-accent">Equipe Atlantis</p>
+        <p className="mt-4 max-w-3xl font-display text-4xl font-semibold leading-tight md:text-6xl">Obrigada. Perguntas?</p>
       </div>
     </Secao>
   );
