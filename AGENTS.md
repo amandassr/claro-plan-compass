@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- `src/lib/atlantis.ts` is a faithful TS port of the Colab notebook engine; `src/lib/dados.ts` holds only numbers copied from notebook outputs. Never invent data; keep tests in sync with notebook results.
