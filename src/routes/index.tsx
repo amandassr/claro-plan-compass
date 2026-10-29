@@ -154,16 +154,16 @@ function Nav({
           </a>
         </div>
         <div className="mt-2 flex flex-wrap items-center justify-between gap-3 border-t border-border/70 pt-2">
-          <nav aria-label="Navegação da apresentação" className="hidden flex-wrap items-center gap-1 lg:flex">
+          <nav aria-label="Navegação da apresentação" className="hidden min-w-0 flex-1 grid-cols-7 gap-1 lg:grid lg:gap-2">
             {TELAS.map((t) => (
               <a
                 key={t.id}
                 href={`#${t.id}`}
                 aria-current={ativa === t.id ? "location" : undefined}
-                className={`rounded-full px-2.5 py-1.5 text-sm transition ${ativa === t.id ? "bg-ink text-ink-foreground" : "text-muted-foreground hover:text-foreground"}`}
+                className={`flex min-h-12 min-w-0 flex-col items-center justify-center gap-1 rounded-xl px-1.5 py-1.5 text-center text-xs leading-tight transition ${ativa === t.id ? "bg-ink text-ink-foreground" : "text-muted-foreground hover:text-foreground"}`}
               >
-                <span className="mr-1.5 font-mono text-[11px] opacity-60">{t.n}</span>
-                {t.t}
+                <span className="font-mono text-[10px] leading-none opacity-60">{t.n}</span>
+                <span className="text-balance">{t.t}</span>
               </a>
             ))}
           </nav>
