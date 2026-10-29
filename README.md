@@ -1,52 +1,83 @@
-# Claro Plan Compass
+# Atlantis: recomendador de planos
 
-Preciso criar um site para um trabalho, gostaria que os dados utilizados no documento do colab aparecessem no site para melhor demonstracao, alem do agente funcional no site tambem. Utilize como base referencias da Claro, o bootcamp foi feito com auxilio deles, para dar um norte de detalhamento e criatividade mais elaborado, nao quero um site engessado e nem que se pareca com um trabalho feito por ia, cem muitos emoticons, um exmeplo de site bonito e limpo como base de comparação https://picpay.com/pt-br/pf, https://nubank.com.br/ e o proprio site da claro, entendo que nao temos os mesmos recursos para utilizar, nao crie dados inexistente, somente os enviados na documentacao do colab, e insira o agente de forma autonoma com os dados dos planos, e toda informacao necessaria, deixe espaco para enviarmos os dados dos integrantes e linkedin, mas ja faca a capa e tudo mais, e um site/apresentacao de trabalho. 
+Site de apresentação do Projeto 1 do bootcamp de LLM, desenvolvido com apoio da Claro, SoulCode e Favela Gaming. O projeto explora como recomendar planos móveis a partir do perfil mensal de consumo, equilibrando cobertura das necessidades e preço.
 
-as instrucoesz que nos deram:
+- **Site publicado:** [claro-plan-compass.lovable.app](https://claro-plan-compass.lovable.app)
+- **Editor Lovable:** [abrir projeto](https://lovable.dev/projects/960c90c0-8fec-436a-a073-9530f3d9843a)
 
-Sobre a apresentação final
+## O que o site apresenta
 
-Cada equipe terá 10 minutos para apresentar seu trabalho e 5 minutos para responderem as perguntas.
+A apresentação está organizada em sete seções:
 
-A apresentação deve ser objetiva e poderá utilizar slides, um pequeno site, um painel interativo ou outro formato visual.
+1. Capa e contexto do problema.
+2. Equipe, objetivo e hipóteses.
+3. Recorte, dados, limpeza e catálogo.
+4. Etapas do modelo e demonstração do Atlantis.
+5. Resultados, experimentos, estabilidade e auditorias.
+6. Conclusões e próximos passos.
+7. Agradecimentos à Claro, à SoulCode, à Favela Gaming e à professora Alanis.
 
-Como referência, organizem aproximadamente seis telas ou slides:
+Na seção de demonstração, a pessoa informa seu consumo mensal de internet, minutos de ligação, horas de streaming e dias em deslocamento. O site valida os valores e apresenta três planos recomendados, a cobertura de cada plano e uma comparação com uma regra simples baseada apenas em GB. As abas também permitem consultar o catálogo e entender os critérios do modelo.
 
-Capa: título do projeto e identificação da equipe.
+## Como o Atlantis recomenda
 
-Integrantes e objetivo: quem desenvolveu e qual problema o projeto busca resolver.
+O motor é uma implementação determinística em TypeScript das etapas documentadas no notebook do Colab. Ele não usa um serviço de IA, LLM ou conversa livre: recebe os valores do formulário e calcula as recomendações no navegador.
 
-Dica: Coloquem a fotinho de vocês junto com o link do Linkedin
+O score combina quatro dimensões, normalizadas pela maior franquia de cada atributo no catálogo. A falta de franquia recebe penalidade 3; a sobra recebe penalidade 1. O cálculo considera margem de 10% sobre o consumo e peso de 0,2 para o preço. Os pesos são 0,4 para internet e 0,2 para cada uma das outras dimensões. Scores menores ficam melhor classificados; em caso de empate, fica à frente o plano mais barato.
 
-Escolhas: recorte, público, dados e tecnologias utilizadas.
+A margem ajuda a ordenar as opções, mas a indicação de cobertura é calculada com o consumo informado, sem essa margem. Se nenhum plano cobrir todas as dimensões, o site avisa e ainda apresenta as opções mais próximas pelo score.
 
-O que foi construído: funcionamento do modelo e demonstração do protótipo.
+## Dados e limitações
 
-Resultados: o que funcionou, quais melhorias foram realizadas e quais dificuldades apareceram.
+Os números exibidos na apresentação foram copiados dos resultados do notebook e estão em `src/lib/dados.ts`. O motor e o catálogo estão em `src/lib/atlantis.ts`. O catálogo é fictício e a demonstração tem finalidade educacional; as recomendações não representam ofertas comerciais da Claro nem substituem validação humana.
 
-Conclusão e próximos passos: principais aprendizados e possibilidades de evolução.
+O site apresenta estatísticas agregadas e uma amostra de cinco registros, não carrega a base completa de clientes. Não acrescente nem altere números sem conferir os resultados correspondentes no notebook. Quando a lógica ou os resultados do motor mudarem, mantenha os testes alinhados aos valores documentados no Colab.
 
-e mandei o arquivo do trabalho com o assitente dentro
+## Tecnologias
 
-This project was built with [Lovable](https://lovable.dev).
+- React 19 e TypeScript.
+- TanStack Start e TanStack Router.
+- Vite e Tailwind CSS 4.
+- Componentes acessíveis baseados em Radix UI, com padrões shadcn/ui.
+- Vitest e Testing Library para testes.
+- SVGs locais para os QR codes do LinkedIn; imagens das instituições em `public/`.
 
-**Live app**: https://claro-plan-compass.lovable.app
+## Estrutura principal
 
-## Build with Lovable
+```text
+src/
+	components/
+		Atlantis.tsx       # Formulário, resultados e catálogo do recomendador
+		charts.tsx         # Gráficos usados na apresentação
+		ui/                # Componentes reutilizáveis de interface
+	lib/
+		atlantis.ts        # Catálogo, validação, baseline e motor de recomendação
+		dados.ts           # Números transcritos dos resultados do Colab
+		atlantis.test.ts   # Testes do motor
+	routes/
+		index.tsx          # Página única com as seções da apresentação
+		__root.tsx         # Layout raiz, metadados e estados de erro
+	styles.css           # Tokens visuais e estilos globais
+public/                # Logos, favicon e QR codes
+```
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/960c90c0-8fec-436a-a073-9530f3d9843a).
+## Executar localmente
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+Requisitos: Node.js e npm.
 
 ```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
+npm install
 npm run dev
 ```
+
+O Vite informa no terminal o endereço local do site. Para validar o projeto:
+
+```sh
+npm test
+npm run lint
+npm run build
+```
+
+## Publicar
+
+O repositório está conectado ao Lovable. Envie as alterações para a branch conectada no GitHub para sincronizá-las com o editor. Para atualizar o site público, abra o projeto no Lovable e use **Publish**. O endereço `localhost` é apenas para desenvolvimento local.

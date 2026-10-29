@@ -773,21 +773,38 @@ function Conclusao() {
 }
 
 function Agradecimentos() {
-  const parceiros = ["Claro", "Soul Code", "Favela Gaming"];
+  const parceiros = [
+    { nome: "Claro", src: "/claro.png", fundo: "bg-white" },
+    { nome: "SoulCode", src: "/soulcode.png", fundo: "bg-white" },
+    { nome: "Favela Gaming", src: "/favela-gaming.png", fundo: "bg-ink-foreground/10" },
+  ];
   return (
     <Secao id="agradecimentos" n="07" kicker="Agradecimentos" titulo="Uma jornada construída em conjunto." escuro>
-      <div className="max-w-3xl">
-        <p className="text-lg leading-relaxed text-ink-foreground/85">
-          Agradecemos à Claro, à Soul Code e à Favela Gaming pela realização do bootcamp e pela oportunidade de desenvolver este projeto.
-          Foi uma experiência de aprendizado, colaboração e construção de soluções em tecnologia.
-        </p>
-      </div>
-      <div className="mt-12 grid gap-4 sm:grid-cols-3">
-        {parceiros.map((parceiro) => (
-          <div key={parceiro} className="flex aspect-[2/1] items-center justify-center rounded-xl border border-dashed border-ink-foreground/30 px-4 text-center">
-            <span className="font-mono text-sm text-ink-muted">Logo da {parceiro} · aguardando envio</span>
-          </div>
-        ))}
+      <div className="grid items-start gap-12 lg:grid-cols-[1.4fr_0.6fr]">
+        <div className="max-w-3xl space-y-5 text-lg leading-relaxed text-ink-foreground/85">
+          <p>
+            Chegamos ao final deste bootcamp de LLM com o coração cheio de gratidão e a sensação de que essa jornada foi muito além do aprendizado técnico. Foi uma oportunidade de compartilhar conhecimentos, trocar experiências, superar desafios e descobrir novas possibilidades na área de tecnologia e inteligência artificial.
+          </p>
+          <p>
+            Agradecemos à Claro, à SoulCode e à Favela Gaming por tornarem essa experiência possível e por acreditarem na educação e na tecnologia como ferramentas de transformação, inclusão e construção de novas oportunidades.
+          </p>
+          <p>
+            Nosso agradecimento especial à professora Alanis, pela dedicação, paciência, ensinamentos e por contribuir de forma tão importante para o nosso desenvolvimento ao longo dessa caminhada.
+          </p>
+          <p>
+            Encerramos esse ciclo levando novos conhecimentos, conexões, aprendizados e a motivação para continuar evoluindo e colocando em prática tudo o que construímos juntos.
+          </p>
+          <p>
+            Obrigada a todos que fizeram parte dessa jornada! Que este seja apenas o começo de muitas conquistas, novas oportunidades e projetos incríveis.
+          </p>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
+          {parceiros.map((parceiro) => (
+            <div key={parceiro.nome} className={`flex min-h-32 items-center justify-center rounded-xl p-6 ${parceiro.fundo}`}>
+              <img src={parceiro.src} alt={`Logo da ${parceiro.nome}`} className="max-h-20 max-w-full object-contain" />
+            </div>
+          ))}
+        </div>
       </div>
       <div className="mt-16 border-t border-ink-foreground/15 pt-10">
         <p className="kicker text-accent">Equipe Atlantis</p>
