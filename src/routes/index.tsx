@@ -152,7 +152,7 @@ function Secao({ id, n, kicker, titulo, children, escuro }: { id: string; n: str
 function Capa() {
   return (
     <section id="capa" className="relative overflow-hidden px-6 pb-20 pt-16 md:px-12 md:pt-24">
-      <div className="mx-auto grid max-w-7xl items-end gap-12 lg:grid-cols-[1.25fr_1fr]">
+      <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
         <div className="animate-rise">
           <div className="flex flex-wrap items-center gap-2">
             <span className="rounded-full border border-border px-3 py-1 text-xs font-medium">Bootcamp · Projeto 1</span>
@@ -179,29 +179,34 @@ function Capa() {
           </div>
         </div>
 
-        <div className="grain relative animate-rise rounded-4xl bg-ink p-8 text-ink-foreground [animation-delay:150ms] md:p-10">
-          <img
-            src="/equipe-atlantis.jpg"
-            alt="Arte da equipe Atlantis em um cenário de fantasia"
-            className="mb-8 max-h-56 w-full rounded-xl bg-white object-contain p-2"
-          />
-          <p className="kicker text-ink-muted">O ponto de partida</p>
-          <p className="mt-6 font-display text-[7rem] font-semibold leading-none tabular">
-            64<span className="text-5xl">,2%</span>
-          </p>
-          <p className="mt-3 max-w-xs text-ink-foreground/80">
-            dos {BASE.clientes} clientes da base já usam mais internet do que o plano atual oferece.
-          </p>
-          <div className="mt-10 grid grid-cols-2 gap-6 border-t border-ink-foreground/15 pt-6">
-            <div>
-              <p className="font-display text-3xl font-semibold tabular">81,7%</p>
-              <p className="text-sm text-ink-muted">estouram em alguma dimensão</p>
-            </div>
-            <div>
-              <p className="font-display text-3xl font-semibold tabular">51,7% → 20%</p>
-              <p className="text-sm text-ink-muted">top-1 com dados insuficientes, baseline vs. modelo</p>
-            </div>
+        <div className="animate-rise [animation-delay:150ms]">
+          <div className="overflow-hidden rounded-3xl border border-border bg-card p-2 shadow-[0_24px_70px_-35px_color-mix(in_oklab,var(--ink)_45%,transparent)] md:p-3">
+            <img
+              src="/equipe-atlantis.jpg"
+              alt="Arte da equipe Atlantis em um cenário de fantasia"
+              className="block h-auto max-h-[38rem] w-full rounded-2xl object-contain"
+            />
           </div>
+          <p className="mt-3 text-center text-sm font-medium text-muted-foreground">Equipe Atlantis</p>
+        </div>
+      </div>
+      <div className="mx-auto mt-10 grid max-w-7xl gap-3 rounded-3xl border border-border bg-card p-5 md:grid-cols-3 md:p-7">
+        <div>
+          <p className="kicker text-muted-foreground">O ponto de partida</p>
+          <p className="mt-3 font-display text-4xl font-semibold tabular text-primary">{num(BASE.excedeDados)}%</p>
+          <p className="mt-1 text-sm text-muted-foreground">
+            dos {BASE.clientes} clientes usam mais internet do que o plano atual oferece.
+          </p>
+        </div>
+        <div className="border-border md:border-l md:pl-6">
+          <p className="kicker text-muted-foreground">Excesso de consumo</p>
+          <p className="mt-3 font-display text-4xl font-semibold tabular">{num(BASE.excedeAlgum)}%</p>
+          <p className="mt-1 text-sm text-muted-foreground">estouram em ao menos uma dimensão.</p>
+        </div>
+        <div className="border-border md:border-l md:pl-6">
+          <p className="kicker text-muted-foreground">Top-1 com dados insuficientes</p>
+          <p className="mt-3 font-display text-4xl font-semibold tabular">51,7% → 20%</p>
+          <p className="mt-1 text-sm text-muted-foreground">baseline versus modelo final.</p>
         </div>
       </div>
     </section>
