@@ -810,6 +810,11 @@ function Agradecimentos() {
         <p className="kicker text-accent">Equipe Atlantis</p>
         <p className="mt-4 max-w-3xl font-display text-4xl font-semibold leading-tight md:text-6xl">Obrigada. Perguntas?</p>
       </div>
+      <img
+        src="/equipe-atlantis.jpg"
+        alt="Arte da equipe Atlantis em um cenário de fantasia"
+        className="mt-10 max-h-[36rem] w-full max-w-md rounded-xl border border-ink-foreground/15 object-contain"
+      />
     </Secao>
   );
 }
