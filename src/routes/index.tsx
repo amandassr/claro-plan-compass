@@ -65,16 +65,41 @@ const TELAS = [
 
 function Index() {
   const ativa = useTelaAtiva();
+  const [tamanhoFonte, setTamanhoFonte] = useState(100);
+
+  useEffect(() => {
+    const raiz = document.documentElement;
+    const tamanhoAnterior = raiz.style.fontSize;
+    raiz.style.fontSize = `${tamanhoFonte}%`;
+    return () => {
+      raiz.style.fontSize = tamanhoAnterior;
+    };
+  }, [tamanhoFonte]);
+
   return (
     <div className="min-h-screen">
-      <Nav ativa={ativa} />
-      <Capa />
-      <Objetivo />
-      <Escolhas />
-      <Construido />
-      <Resultados />
-      <Conclusao />
-      <Agradecimentos />
+      <a
+        href="#conteudo-principal"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-md focus:bg-ink focus:px-4 focus:py-3 focus:text-ink-foreground focus:shadow-lg"
+      >
+        Pular para o conteúdo principal
+      </a>
+      <Nav
+        ativa={ativa}
+        tamanhoFonte={tamanhoFonte}
+        diminuirFonte={() => setTamanhoFonte((atual) => Math.max(80, atual - 10))}
+        restaurarFonte={() => setTamanhoFonte(100)}
+        aumentarFonte={() => setTamanhoFonte((atual) => Math.min(130, atual + 10))}
+      />
+      <main id="conteudo-principal" tabIndex={-1} className="scroll-mt-24 outline-none">
+        <Capa />
+        <Objetivo />
+        <Escolhas />
+        <Construido />
+        <Resultados />
+        <Conclusao />
+        <Agradecimentos />
+      </main>
       <footer className="border-t border-border px-6 py-10 text-sm text-muted-foreground md:px-12">
         <div className="mx-auto flex max-w-7xl flex-wrap justify-between gap-4">
           <p>
@@ -103,29 +128,85 @@ function useTelaAtiva() {
   return ativa;
 }
 
-function Nav({ ativa }: { ativa: string }) {
+function Nav({
+  ativa,
+  tamanhoFonte,
+  diminuirFonte,
+  restaurarFonte,
+  aumentarFonte,
+}: {
+  ativa: string;
+  tamanhoFonte: number;
+  diminuirFonte: () => void;
+  restaurarFonte: () => void;
+  aumentarFonte: () => void;
+}) {
   return (
     <header className="sticky top-0 z-40 border-b border-border/70 bg-background/85 backdrop-blur-md">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-3 md:px-12">
-        <a href="#capa" className="flex items-center gap-2.5">
-          <span className="grid size-8 place-items-center rounded-full bg-primary font-display font-bold text-primary-foreground">A</span>
-          <span className="font-display text-lg font-semibold">Atlantis</span>
-        </a>
-        <nav className="hidden items-center gap-1 lg:flex">
-          {TELAS.map((t) => (
-            <a
-              key={t.id}
-              href={`#${t.id}`}
-              className={`rounded-full px-3 py-1.5 text-sm transition ${ativa === t.id ? "bg-ink text-ink-foreground" : "text-muted-foreground hover:text-foreground"}`}
-            >
-              <span className="mr-1.5 font-mono text-[11px] opacity-60">{t.n}</span>
-              {t.t}
-            </a>
-          ))}
-        </nav>
-        <a href="#demo" className="rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition hover:bg-primary-deep">
-          Testar o Atlantis
-        </a>
+      <div className="mx-auto max-w-7xl px-4 py-2 md:px-12">
+        <div className="flex items-center justify-between gap-4">
+          <a href="#capa" className="flex shrink-0 items-center gap-2.5">
+            <span className="grid size-8 place-items-center rounded-full bg-primary font-display font-bold text-primary-foreground">A</span>
+            <span className="font-display text-lg font-semibold">Atlantis</span>
+          </a>
+          <a href="#demo" className="rounded-full bg-primary px-3 py-2 text-xs font-semibold text-primary-foreground transition hover:bg-primary-deep sm:px-4 sm:text-sm">
+            Testar o Atlantis
+          </a>
+        </div>
+        <div className="mt-2 flex flex-wrap items-center justify-between gap-3 border-t border-border/70 pt-2">
+          <nav aria-label="Navegação da apresentação" className="hidden flex-wrap items-center gap-1 lg:flex">
+            {TELAS.map((t) => (
+              <a
+                key={t.id}
+                href={`#${t.id}`}
+                aria-current={ativa === t.id ? "location" : undefined}
+                className={`rounded-full px-2.5 py-1.5 text-sm transition ${ativa === t.id ? "bg-ink text-ink-foreground" : "text-muted-foreground hover:text-foreground"}`}
+              >
+                <span className="mr-1.5 font-mono text-[11px] opacity-60">{t.n}</span>
+                {t.t}
+              </a>
+            ))}
+          </nav>
+          <div className="ml-auto flex items-center gap-2 sm:gap-3">
+            <div role="group" aria-label="Tamanho do texto" className="flex items-center gap-1 rounded-md border border-border p-1">
+              <button
+                type="button"
+                aria-label="Diminuir tamanho do texto"
+                title="Diminuir tamanho do texto"
+                onClick={diminuirFonte}
+                disabled={tamanhoFonte <= 80}
+                className="rounded px-1.5 py-1 text-xs font-semibold hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-40"
+              >
+                A−
+              </button>
+              <button
+                type="button"
+                aria-label="Restaurar tamanho padrão do texto"
+                title="Restaurar tamanho padrão"
+                onClick={restaurarFonte}
+                className="rounded px-1.5 py-1 font-mono text-[10px] tabular hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                {tamanhoFonte}%
+              </button>
+              <button
+                type="button"
+                aria-label="Aumentar tamanho do texto"
+                title="Aumentar tamanho do texto"
+                onClick={aumentarFonte}
+                disabled={tamanhoFonte >= 130}
+                className="rounded px-1.5 py-1 text-xs font-semibold hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-40"
+              >
+                A+
+              </button>
+              <span className="sr-only" aria-live="polite">Tamanho do texto: {tamanhoFonte}%</span>
+            </div>
+            <div role="group" aria-label="Logos das instituições parceiras" className="flex items-center gap-1 sm:gap-2">
+              <img src="/claro.png" alt="Claro" className="h-7 w-12 rounded bg-white px-1 object-contain sm:h-8 sm:w-16" />
+              <img src="/soulcode.png" alt="SoulCode" className="h-7 w-12 rounded bg-white px-1 object-contain sm:h-8 sm:w-16" />
+              <img src="/favela-gaming.png" alt="Favela Gaming" className="h-7 w-12 rounded bg-ink px-1 object-contain sm:h-8 sm:w-16" />
+            </div>
+          </div>
+        </div>
       </div>
     </header>
   );
@@ -133,7 +214,7 @@ function Nav({ ativa }: { ativa: string }) {
 
 function Secao({ id, n, kicker, titulo, children, escuro }: { id: string; n: string; kicker: string; titulo: ReactNode; children: ReactNode; escuro?: boolean }) {
   return (
-    <section id={id} className={`scroll-mt-16 px-6 py-24 md:px-12 md:py-32 ${escuro ? "grain bg-ink text-ink-foreground" : ""}`}>
+    <section id={id} className={`scroll-mt-24 px-6 py-24 md:px-12 md:py-32 ${escuro ? "grain bg-ink text-ink-foreground" : ""}`}>
       <div className="mx-auto max-w-7xl">
         <div className="mb-14 grid gap-6 md:grid-cols-[120px_1fr]">
           <p className={`font-mono text-sm ${escuro ? "text-ink-muted" : "text-muted-foreground"}`}>{n} / 07</p>
@@ -151,7 +232,7 @@ function Secao({ id, n, kicker, titulo, children, escuro }: { id: string; n: str
 /* 01 — CAPA */
 function Capa() {
   return (
-    <section id="capa" className="relative overflow-hidden px-6 pb-20 pt-16 md:px-12 md:pt-24">
+    <section id="capa" className="relative scroll-mt-24 overflow-hidden px-6 pb-20 pt-16 md:px-12 md:pt-24">
       <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
         <div className="animate-rise">
           <div className="flex flex-wrap items-center gap-2">
