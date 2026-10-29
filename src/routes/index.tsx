@@ -156,9 +156,9 @@ function Nav({ ativa }: { ativa: string }) {
                 key={t.id}
                 href={`#${t.id}`}
                 aria-current={ativa === t.id ? "location" : undefined}
-                className={`flex min-h-12 min-w-0 flex-col items-center justify-center gap-1 rounded-xl px-1.5 py-1.5 text-center text-xs leading-tight transition ${ativa === t.id ? "bg-ink text-ink-foreground" : "text-muted-foreground hover:text-foreground"}`}
+                className={`flex min-h-14 min-w-0 flex-col items-center justify-center gap-1 rounded-xl px-1.5 py-1.5 text-center text-sm font-semibold leading-tight transition ${ativa === t.id ? "bg-ink text-ink-foreground" : "text-foreground/75 hover:text-foreground"}`}
               >
-                <span className="font-mono text-[10px] leading-none opacity-60">{t.n}</span>
+                <span className="font-mono text-xs leading-none opacity-70">{t.n}</span>
                 <span className="text-balance">{t.t}</span>
               </a>
             ))}
