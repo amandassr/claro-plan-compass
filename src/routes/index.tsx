@@ -47,10 +47,10 @@ export const Route = createFileRoute("/")({
    ────────────────────────────────────────────────────────────── */
 const EQUIPE = "Equipe Atlantis";
 const INTEGRANTES: { nome: string; linkedin: string; foto: string; qr: string }[] = [
-  { nome: "Amanda Ribeiro", linkedin: "https://www.linkedin.com/in/amanda-ribeiro-b5b2b3176/", foto: "", qr: "/amanda-ribeiro-qr.svg" },
-  { nome: "Amanda Carvalho", linkedin: "https://www.linkedin.com/in/amanda-carvalho-teixeira-430b9113a/", foto: "", qr: "/amanda-carvalho-qr.svg" },
-  { nome: "Raquel Domingues", linkedin: "https://www.linkedin.com/in/raquelcs-domingues/", foto: "", qr: "/raquel-domingues-qr.svg" },
-  { nome: "Andresa Caroline", linkedin: "https://www.linkedin.com/in/Andresa-caroline/", foto: "", qr: "/andresa-caroline-qr.svg" },
+  { nome: "Amanda Ribeiro", linkedin: "https://www.linkedin.com/in/amanda-ribeiro-b5b2b3176/", foto: "/amanda-ribeiro.jpg", qr: "/amanda-ribeiro-qr.svg" },
+  { nome: "Amanda Carvalho", linkedin: "https://www.linkedin.com/in/amanda-carvalho-teixeira-430b9113a/", foto: "/amanda-carvalho.jpg", qr: "/amanda-carvalho-qr.svg" },
+  { nome: "Raquel Domingues", linkedin: "https://www.linkedin.com/in/raquelcs-domingues/", foto: "/raquel-domingues.jpg", qr: "/raquel-domingues-qr.svg" },
+  { nome: "Andresa Caroline", linkedin: "https://www.linkedin.com/in/Andresa-caroline/", foto: "/andresa-caroline.jpg", qr: "/andresa-caroline-qr.svg" },
 ];
 
 const TELAS = [
