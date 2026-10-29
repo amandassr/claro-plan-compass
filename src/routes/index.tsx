@@ -57,7 +57,7 @@ const TELAS = [
   { id: "capa", n: "01", t: "Capa" },
   { id: "objetivo", n: "02", t: "Equipe e objetivo" },
   { id: "escolhas", n: "03", t: "Escolhas" },
-  { id: "construido", n: "04", t: "O que construímos" },
+  { id: "construido", n: "04", t: "Protótipo" },
   { id: "resultados", n: "05", t: "Resultados" },
   { id: "conclusao", n: "06", t: "Conclusão" },
   { id: "agradecimentos", n: "07", t: "Agradecimentos" },
@@ -84,8 +84,8 @@ function Index() {
       >
         Pular para o conteúdo principal
       </a>
-      <Nav
-        ativa={ativa}
+      <Nav ativa={ativa} />
+      <Acessibilidade
         tamanhoFonte={tamanhoFonte}
         diminuirFonte={() => setTamanhoFonte((atual) => Math.max(80, atual - 10))}
         restaurarFonte={() => setTamanhoFonte(100)}
@@ -128,19 +128,7 @@ function useTelaAtiva() {
   return ativa;
 }
 
-function Nav({
-  ativa,
-  tamanhoFonte,
-  diminuirFonte,
-  restaurarFonte,
-  aumentarFonte,
-}: {
-  ativa: string;
-  tamanhoFonte: number;
-  diminuirFonte: () => void;
-  restaurarFonte: () => void;
-  aumentarFonte: () => void;
-}) {
+function Nav({ ativa }: { ativa: string }) {
   return (
     <header className="sticky top-0 z-40 border-b border-border/70 bg-background/85 backdrop-blur-md">
       <div className="mx-auto max-w-7xl px-4 py-2 md:px-12">
@@ -167,48 +155,67 @@ function Nav({
               </a>
             ))}
           </nav>
-          <div className="ml-auto flex items-center gap-2 sm:gap-3">
-            <div role="group" aria-label="Tamanho do texto" className="flex items-center gap-1 rounded-md border border-border p-1">
-              <button
-                type="button"
-                aria-label="Diminuir tamanho do texto"
-                title="Diminuir tamanho do texto"
-                onClick={diminuirFonte}
-                disabled={tamanhoFonte <= 80}
-                className="rounded px-1.5 py-1 text-xs font-semibold hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-40"
-              >
-                A−
-              </button>
-              <button
-                type="button"
-                aria-label="Restaurar tamanho padrão do texto"
-                title="Restaurar tamanho padrão"
-                onClick={restaurarFonte}
-                className="rounded px-1.5 py-1 font-mono text-[10px] tabular hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-              >
-                {tamanhoFonte}%
-              </button>
-              <button
-                type="button"
-                aria-label="Aumentar tamanho do texto"
-                title="Aumentar tamanho do texto"
-                onClick={aumentarFonte}
-                disabled={tamanhoFonte >= 130}
-                className="rounded px-1.5 py-1 text-xs font-semibold hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-40"
-              >
-                A+
-              </button>
-              <span className="sr-only" aria-live="polite">Tamanho do texto: {tamanhoFonte}%</span>
-            </div>
-            <div role="group" aria-label="Logos das instituições parceiras" className="flex items-center gap-1 sm:gap-2">
-              <img src="/claro.png" alt="Claro" className="h-7 w-12 rounded bg-white px-1 object-contain sm:h-8 sm:w-16" />
-              <img src="/soulcode.png" alt="SoulCode" className="h-7 w-12 rounded bg-white px-1 object-contain sm:h-8 sm:w-16" />
-              <img src="/favela-gaming.png" alt="Favela Gaming" className="h-7 w-12 rounded bg-ink px-1 object-contain sm:h-8 sm:w-16" />
-            </div>
+          <div role="group" aria-label="Logos das instituições parceiras" className="ml-auto flex items-center gap-1 sm:gap-2">
+            <img src="/claro.png" alt="Claro" className="h-7 w-12 rounded bg-white px-1 object-contain sm:h-8 sm:w-16" />
+            <img src="/soulcode.png" alt="SoulCode" className="h-7 w-12 rounded bg-white px-1 object-contain sm:h-8 sm:w-16" />
+            <img src="/favela-gaming.png" alt="Favela Gaming" className="h-7 w-12 rounded bg-ink px-1 object-contain sm:h-8 sm:w-16" />
           </div>
         </div>
       </div>
     </header>
+  );
+}
+
+function Acessibilidade({
+  tamanhoFonte,
+  diminuirFonte,
+  restaurarFonte,
+  aumentarFonte,
+}: {
+  tamanhoFonte: number;
+  diminuirFonte: () => void;
+  restaurarFonte: () => void;
+  aumentarFonte: () => void;
+}) {
+  return (
+    <aside
+      aria-label="Controles de acessibilidade"
+      className="fixed bottom-4 right-4 z-50 rounded-xl border border-border bg-background/95 p-2 shadow-lg backdrop-blur sm:bottom-6 sm:right-6"
+    >
+      <p className="mb-1 px-1 text-center text-[10px] font-semibold text-muted-foreground">Tamanho do texto</p>
+      <div role="group" aria-label="Tamanho do texto" className="flex items-center gap-1">
+        <button
+          type="button"
+          aria-label="Diminuir tamanho do texto"
+          title="Diminuir tamanho do texto"
+          onClick={diminuirFonte}
+          disabled={tamanhoFonte <= 80}
+          className="grid size-9 place-items-center rounded-lg text-sm font-semibold hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-40"
+        >
+          A−
+        </button>
+        <button
+          type="button"
+          aria-label="Restaurar tamanho padrão do texto"
+          title="Restaurar tamanho padrão"
+          onClick={restaurarFonte}
+          className="grid h-9 min-w-12 place-items-center rounded-lg px-1 font-mono text-xs tabular hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        >
+          {tamanhoFonte}%
+        </button>
+        <button
+          type="button"
+          aria-label="Aumentar tamanho do texto"
+          title="Aumentar tamanho do texto"
+          onClick={aumentarFonte}
+          disabled={tamanhoFonte >= 130}
+          className="grid size-9 place-items-center rounded-lg text-sm font-semibold hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-40"
+        >
+          A+
+        </button>
+      </div>
+      <span className="sr-only" aria-live="polite">Tamanho do texto: {tamanhoFonte}%</span>
+    </aside>
   );
 }
 
