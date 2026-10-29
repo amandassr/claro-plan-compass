@@ -180,6 +180,11 @@ function Capa() {
         </div>
 
         <div className="grain relative animate-rise rounded-4xl bg-ink p-8 text-ink-foreground [animation-delay:150ms] md:p-10">
+          <img
+            src="/equipe-atlantis.jpg"
+            alt="Arte da equipe Atlantis em um cenário de fantasia"
+            className="mb-8 max-h-56 w-full rounded-xl bg-white object-contain p-2"
+          />
           <p className="kicker text-ink-muted">O ponto de partida</p>
           <p className="mt-6 font-display text-[7rem] font-semibold leading-none tabular">
             64<span className="text-5xl">,2%</span>
@@ -810,11 +815,6 @@ function Agradecimentos() {
         <p className="kicker text-accent">Equipe Atlantis</p>
         <p className="mt-4 max-w-3xl font-display text-4xl font-semibold leading-tight md:text-6xl">Obrigada. Perguntas?</p>
       </div>
-      <img
-        src="/equipe-atlantis.jpg"
-        alt="Arte da equipe Atlantis em um cenário de fantasia"
-        className="mt-10 max-h-[36rem] w-full max-w-md rounded-xl border border-ink-foreground/15 object-contain"
-      />
     </Secao>
   );
 }
