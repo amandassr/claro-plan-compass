@@ -81,6 +81,24 @@
   --chart-4: oklch(0.6 0.13 155);
 }
 
+:root.paleta-daltonismo {
+  --primary: #0072b2;
+  --primary-deep: #005785;
+  --primary-soft: #e8f4fa;
+  --primary-foreground: #ffffff;
+  --accent: #e69f00;
+  --accent-foreground: #251900;
+  --ok: #805000;
+  --ok-soft: #fff1d6;
+  --destructive: #a63e00;
+  --destructive-foreground: #ffffff;
+  --ring: #0072b2;
+  --chart-1: #0072b2;
+  --chart-2: #222222;
+  --chart-3: #e69f00;
+  --chart-4: #56b4e9;
+}
+
 @layer base {
   * {
     border-color: var(--color-border);

@@ -66,6 +66,7 @@ const TELAS = [
 function Index() {
   const ativa = useTelaAtiva();
   const [tamanhoFonte, setTamanhoFonte] = useState(100);
+  const [paletaDaltonismo, setPaletaDaltonismo] = useState(false);
 
   useEffect(() => {
     const raiz = document.documentElement;
@@ -75,6 +76,11 @@ function Index() {
       raiz.style.fontSize = tamanhoAnterior;
     };
   }, [tamanhoFonte]);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("paleta-daltonismo", paletaDaltonismo);
+    return () => document.documentElement.classList.remove("paleta-daltonismo");
+  }, [paletaDaltonismo]);
 
   return (
     <div className="min-h-screen">
@@ -90,6 +96,8 @@ function Index() {
         diminuirFonte={() => setTamanhoFonte((atual) => Math.max(80, atual - 10))}
         restaurarFonte={() => setTamanhoFonte(100)}
         aumentarFonte={() => setTamanhoFonte((atual) => Math.min(130, atual + 10))}
+        paletaDaltonismo={paletaDaltonismo}
+        alternarPaletaDaltonismo={() => setPaletaDaltonismo((ativa) => !ativa)}
       />
       <main id="conteudo-principal" tabIndex={-1} className="scroll-mt-24 outline-none">
         <Capa />
@@ -171,11 +179,15 @@ function Acessibilidade({
   diminuirFonte,
   restaurarFonte,
   aumentarFonte,
+  paletaDaltonismo,
+  alternarPaletaDaltonismo,
 }: {
   tamanhoFonte: number;
   diminuirFonte: () => void;
   restaurarFonte: () => void;
   aumentarFonte: () => void;
+  paletaDaltonismo: boolean;
+  alternarPaletaDaltonismo: () => void;
 }) {
   return (
     <aside
@@ -214,6 +226,16 @@ function Acessibilidade({
           A+
         </button>
       </div>
+      <button
+        type="button"
+        aria-pressed={paletaDaltonismo}
+        onClick={alternarPaletaDaltonismo}
+        className={`mt-1 flex min-h-9 w-full items-center gap-2 rounded-lg px-2 text-left text-xs font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${paletaDaltonismo ? "bg-primary-soft text-primary-deep" : "hover:bg-muted"}`}
+      >
+        <span aria-hidden="true" className="grid size-5 shrink-0 place-items-center rounded border border-current font-semibold">Aa</span>
+        <span className="flex-1">Paleta para daltonismo</span>
+        <span aria-hidden="true" className={`size-3 shrink-0 rounded-full ${paletaDaltonismo ? "bg-primary" : "bg-muted-foreground/40"}`} />
+      </button>
       <span className="sr-only" aria-live="polite">Tamanho do texto: {tamanhoFonte}%</span>
     </aside>
   );
