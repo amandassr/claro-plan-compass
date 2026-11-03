@@ -180,6 +180,7 @@ function Resultado({ r, atual }: { r: Extract<ReturnType<typeof recomendarParaAg
   const cobreBase = base.filter((b) => cobreTudo(p, b)).length;
   const cobreMod = r.recomendacoes.filter((x) => x.cobre_tudo).length;
   const top = r.recomendacoes[0];
+  if (!top) return null;
 
   return (
     <div className="animate-rise space-y-6">
