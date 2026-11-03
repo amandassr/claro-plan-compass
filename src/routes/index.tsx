@@ -906,7 +906,7 @@ function Agradecimentos() {
             Chegamos ao final deste bootcamp de LLM com o coração cheio de gratidão e a sensação de que essa jornada foi muito além do aprendizado técnico. Foi uma oportunidade de compartilhar conhecimentos, trocar experiências, superar desafios e descobrir novas possibilidades na área de tecnologia e inteligência artificial.
           </p>
           <p>
-            Agradecemos à Claro, à SoulCode e à Favela Gaming por tornarem essa experiência possível e por acreditarem na educação e na tecnologia como ferramentas de transformação, inclusão e construção de novas oportunidades.
+            Agradecemos a Claro, SoulCode e a Favela Gaming por tornarem essa experiência possível e por acreditarem na educação e na tecnologia como ferramentas de transformação, inclusão e construção de novas oportunidades.
           </p>
           <p>
             Nosso agradecimento especial à professora Alanis, pela dedicação, paciência, ensinamentos e por contribuir de forma tão importante para o nosso desenvolvimento ao longo dessa caminhada.
