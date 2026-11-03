@@ -5,6 +5,23 @@ Site de apresentação do Projeto 1 do bootcamp de LLM, desenvolvido com apoio d
 - **Site publicado:** [claro-plan-compass.lovable.app](https://claro-plan-compass.lovable.app)
 - **Editor Lovable:** [abrir projeto](https://lovable.dev/projects/960c90c0-8fec-436a-a073-9530f3d9843a)
 
+## Registro visual do site
+
+Capturas completas da apresentação em desktop e celular, preservadas neste repositório:
+
+<details>
+<summary>Ver capturas do site</summary>
+
+### Desktop
+
+![Site completo em desktop](./docs/screenshots/2026-11-03-site-completo-desktop.png)
+
+### Celular
+
+![Site completo em celular](./docs/screenshots/2026-11-03-site-completo-mobile.png)
+
+</details>
+
 ## O que o site apresenta
 
 A apresentação está organizada em sete seções:
